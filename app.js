@@ -32,14 +32,14 @@ app.get('/script.js', require('browserify-middleware')(__dirname+'/client.js'))
 app.get('/', (req, res) => res.render('index.pug', { req, items }))
 
 app.post('/invoice', pwrap(async (req, res) => {
-  const item = items[req.body.item]
-  if (!item) return res.sendStatus(404)
+  const item = req.body.item && items[req.body.item]
+  if (req.body.item && !item) return res.sendStatus(404)
 
   const inv = await charge.invoice({
-    amount: item.price
-  , currency: item.price ? 'ILS' : null
-  , description: `${ app.settings.title }: ${ item.title }`
-  , expiry: 600
+    amount: item ? item.price : null
+  , currency: item ? 'ILS' : null
+  , description: `${ app.settings.title }${ item ? ': ' + item.title : '' }`
+  , expiry: 599
   , metadata: { item: req.body.item }
   })
   res.send(only(inv, 'id payreq msatoshi quoted_currency quoted_amount expires_at'))
