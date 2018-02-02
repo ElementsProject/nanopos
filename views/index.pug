@@ -16,7 +16,7 @@ html.h-100
         for item, itemid in items
           .col-sm-4.mb-3
             h3= item.title
-            button.btn.btn-secondary(data-buy=itemid) Buy for ₪#{ item.price }
+            button.btn.btn-secondary(data-buy=itemid) Buy for #{ formatFiat(item.price) }
 
       button.btn.btn-secondary.mt-4.mb-4(data-buy) Something else
 

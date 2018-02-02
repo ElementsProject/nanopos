@@ -2,6 +2,7 @@ import fs     from 'fs'
 import path   from 'path'
 import only   from 'only'
 import yaml   from 'js-yaml'
+import curfor from 'currency-formatter'
 import Charge from 'lightning-charge-client'
 
 import { pwrap } from './util'
@@ -11,6 +12,8 @@ const app    = require('express')()
     , charge = Charge(process.env.CHARGE_URL || 'http://localhost:9112', process.env.CHARGE_TOKEN)
 
 Object.keys(items).filter(k => !items[k].title).forEach(k => items[k].title = k)
+
+app.locals.formatFiat = amount => curfor.format(amount, { code: app.settings.currency.toUpperCase() })
 
 app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
