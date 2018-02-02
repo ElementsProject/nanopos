@@ -12,7 +12,7 @@ $('[data-buy]').click(async e => {
 
   try {
     const inv  = await $.post('/invoice', { item: $(e.target).data('buy'), _csrf: csrf })
-        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`, { margin: 0, width: 300 })
+        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 0, width: 300 })
         , diag = $(payDialog({ ...inv, qr })).modal()
 
     updateExp(diag.find('[data-countdown-to]'))
