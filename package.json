@@ -1,0 +1,45 @@
+{
+  "name": "tlv-embassy-store",
+  "version": "0.0.1",
+  "description": "TLV emBassy Store",
+  "scripts": {
+    "start": "./start.sh"
+  },
+  "repository": "https://github.com/shesek/tlv-embassy-store.git",
+  "keywords": [
+    "bitcoin",
+    "lightning"
+  ],
+  "author": "Nadav Ivgi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bootswatch": "^4.0.0-beta.3",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "express": "^4.16.2",
+    "jquery": "^3.3.1",
+    "lightning-charge-client": "^0.1.4",
+    "meow": "^4.0.0",
+    "morgan": "^1.9.0",
+    "only": "0.0.2",
+    "pug": "^2.0.0-rc.4",
+    "qrcode": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browserify-middleware": "^8.0.0",
+    "babelify": "^8.0.0",
+    "pugify": "^2.2.0",
+    "js-yaml": "^3.10.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "pugify"
+    ]
+  }
+}

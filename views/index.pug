@@ -1,0 +1,23 @@
+doctype html
+
+html.h-100
+  title= settings.title
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  meta(name='csrf', content=req.csrfToken())
+  link(rel='stylesheet', href='static/bootstrap.css')
+
+  body.h-100
+    .container.d-flex.h-100: .justify-content-center.align-self-center.text-center.mx-auto
+
+      h1.mb-4 TLV Bitcoin emBassy
+
+      .row
+        for item, itemid in items
+          .col-md-4.mb-3
+            h3= item.title
+            button.btn.btn-secondary(data-buy=itemid) Buy for ₪#{ item.price }
+
+  script(src='static/jquery.js')
+  script(src='static/bootstrap.js')
+  script(src='script.js')
