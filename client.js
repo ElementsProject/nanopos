@@ -1,8 +1,8 @@
 require('babel-polyfill')
 
 const qrcode = require('qrcode')
-const payDialog = require('./views/pay-dialog.pug')
-const paidDialog = require('./views/paid-dialog.pug')
+const payDialog = require('./views/payment.pug')
+const paidDialog = require('./views/success.pug')
 
 const csrf = $('meta[name=csrf]').attr('content')
 
