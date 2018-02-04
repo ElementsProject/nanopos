@@ -6,34 +6,43 @@ const paidDialog = require('./views/success.pug')
 
 const csrf = $('meta[name=csrf]').attr('content')
 
-$('[data-buy]').click(async e => {
+$('[data-buy-item]').click(e => {
   e.preventDefault()
-  $('[data-buy]').prop('disabled', true)
+  pay({ item: $(e.target).data('buy-item') })
+})
+$('[data-buy]').submit(e => {
+  e.preventDefault()
+  pay({ amount: $(e.target).find('[name=amount]').val() })
+})
+
+const pay = async data => {
+  $('[data-buy-item], [data-buy] :input').prop('disabled', true)
 
   try {
-    const inv  = await $.post('/invoice', { item: $(e.target).data('buy'), _csrf: csrf })
+    const inv  = await $.post('invoice', { ...data, _csrf: csrf })
         , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 0, width: 300 })
         , diag = $(payDialog({ ...inv, qr })).modal()
 
     updateExp(diag.find('[data-countdown-to]'))
-    listen(inv.id, paid => (diag.modal('hide'), paid && success()))
+
+    const unlisten = listen(inv.id, paid => (diag.modal('hide'), paid && success()))
+    diag.on('hidden.bs.modal', unlisten)
   }
-  finally {
-    $('[data-buy]').attr('disabled', false)
-  }
-})
+  finally { $(':disabled').attr('disabled', false) }
+}
 
 const listen = (invid, cb) => {
-  const req = new XMLHttpRequest()
-  req.addEventListener('load', ev =>
-    ev.target.status === 204 ? cb(true)
-  : ev.target.status === 410 ? cb(false)
-  : ev.target.status === 402 ? listen(invid, cb) // long polling timed-out, re-poll immediately
-  : setTimeout(poll, 10000)) // unknown response, re-poll after delay
+  let retry = _ => listen(invid, cb)
+  const req = $.get(`invoice/${ invid }/wait`)
 
-  req.addEventListener('error', _ => setTimeout(_ => listen(invid, cb), 10000))
-  req.open('GET', `/invoice/${ invid }/wait`)
-  req.send()
+  req.then(_ => cb(true))
+    .catch(err =>
+      err.status === 402 ? retry()   // long polling timed out, invoice is still payable
+    : err.status === 410 ? cb(false) // invoice expired and can no longer be paid
+    : err.statusText === 'abort' ? null // user aborted, do nothing
+    : err.setTimeout(retry, 10000)) // unknown error, re-poll after delay
+
+  return _ => (retry = _ => null, req.abort())
 }
 
 const success = _ => {

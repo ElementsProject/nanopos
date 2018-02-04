@@ -36,12 +36,12 @@ app.get('/script.js', require('browserify-middleware')(__dirname+'/client.js'))
 app.get('/', (req, res) => res.render('index.pug', { req, items }))
 
 app.post('/invoice', pwrap(async (req, res) => {
-  const item = req.body.item && items[req.body.item]
-  if (req.body.item && !item) return res.sendStatus(404)
+  const item = req.body.item ? items[req.body.item] : { price: req.body.amount }
+  if (!item) return res.sendStatus(404)
 
   const inv = await charge.invoice({
-    amount: item ? item.price : null
-  , currency: item ? app.settings.currency : null
+    amount: item.price
+  , currency: item.price ? app.settings.currency : null
   , description: `${ app.settings.title }${ item ? ': ' + item.title : '' }`
   , expiry: 599
   , metadata: { item: req.body.item }
@@ -50,7 +50,7 @@ app.post('/invoice', pwrap(async (req, res) => {
 }))
 
 app.get('/invoice/:invoice/wait', pwrap(async (req, res) => {
-  const paid = await charge.wait(req.params.invoice)
+  const paid = await charge.wait(req.params.invoice, 5)
   res.sendStatus(paid === null ? 402 : paid ? 204 : 410)
 }))
 
