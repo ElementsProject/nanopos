@@ -1,7 +1,7 @@
 {
   "name": "nanopos",
   "version": "0.0.1",
-  "description": "A simple Lightning point-of-sale system based on Lightning Charge.",
+  "description": "A simple Lightning point-of-sale system, powered by Lightning Charge.",
   "scripts": {
     "start": "./start.sh"
   },
