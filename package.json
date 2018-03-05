@@ -1,14 +1,17 @@
 {
-  "name": "tlv-embassy-store",
+  "name": "nanopos",
   "version": "0.0.1",
-  "description": "TLV emBassy Store",
+  "description": "A simple Lightning point-of-sale system based on Lightning Charge.",
   "scripts": {
     "start": "./start.sh"
   },
-  "repository": "https://github.com/shesek/tlv-embassy-store.git",
+  "repository": "https://github.com/shesek/nanopos.git",
   "keywords": [
     "bitcoin",
-    "lightning"
+    "lightning",
+    "lightning-charge",
+    "PoS",
+    "point-of-sale"
   ],
   "author": "Nadav Ivgi",
   "license": "MIT",
@@ -20,8 +23,8 @@
     "currency-formatter": "^1.3.2",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
+    "js-yaml": "^3.10.0",
     "lightning-charge-client": "^0.1.4",
-    "meow": "^4.0.0",
     "morgan": "^1.9.0",
     "move-decimal-point": "0.0.4",
     "only": "0.0.2",
@@ -33,10 +36,9 @@
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "browserify-middleware": "^8.0.0",
     "babelify": "^8.0.0",
-    "pugify": "^2.2.0",
-    "js-yaml": "^3.10.0"
+    "browserify-middleware": "^8.0.0",
+    "pugify": "^2.2.0"
   },
   "browserify": {
     "transform": [
