@@ -1,0 +1,20 @@
+---
+
+tea:
+  price: 0.02
+  title: Green Tea # title is optional, defaults to the keys
+
+coffee:
+  price: 1
+
+bamba:
+  price: 3
+
+beer:
+  price: 7
+
+hat:
+  price: 15
+
+tshirt:
+  price: 25
