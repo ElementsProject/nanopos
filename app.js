@@ -17,9 +17,8 @@ app.locals.formatFiat = amount => curfor.format(amount, { code: app.settings.cur
 
 app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
-app.set('url', process.env.URL || `http://${app.settings.host}:${app.settings.port}`)
-app.set('title', process.env.TITLE || 'Lightning Shop')
-app.set('currency', process.env.CURRENCY || 'USD')
+app.set('title', process.env.TITLE || 'Lightning Nano PoS')
+app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('views', path.join(__dirname, 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
 
