@@ -1,15 +1,12 @@
 import fs     from 'fs'
 import path   from 'path'
 import only   from 'only'
-import yaml   from 'js-yaml'
 import curfor from 'currency-formatter'
-import Charge from 'lightning-charge-client'
-
 import { pwrap } from './util'
 
 const app    = require('express')()
-    , items  = yaml.safeLoad(fs.readFileSync(process.env.ITEMS_PATH || 'items.yaml'))
-    , charge = Charge(process.env.CHARGE_URL || 'http://localhost:9112', process.env.CHARGE_TOKEN)
+    , items  = require('js-yaml').safeLoad(fs.readFileSync(process.env.ITEMS_PATH || 'items.yaml'))
+    , charge = require('lightning-charge-client')(process.env.CHARGE_URL, process.env.CHARGE_TOKEN)
 
 Object.keys(items).filter(k => !items[k].title).forEach(k => items[k].title = k)
 
@@ -49,7 +46,7 @@ app.post('/invoice', pwrap(async (req, res) => {
 }))
 
 app.get('/invoice/:invoice/wait', pwrap(async (req, res) => {
-  const paid = await charge.wait(req.params.invoice, 5)
+  const paid = await charge.wait(req.params.invoice, 100)
   res.sendStatus(paid === null ? 402 : paid ? 204 : 410)
 }))
 
