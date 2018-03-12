@@ -40,7 +40,7 @@ app.post('/invoice', pwrap(async (req, res) => {
   , currency: item.price ? app.settings.currency : null
   , description: `${ app.settings.title }${ item ? ': ' + item.title : '' }`
   , expiry: 599
-  , metadata: { item: req.body.item }
+  , metadata: { source: 'nanopos', item: req.body.item }
   })
   res.send(only(inv, 'id payreq msatoshi quoted_currency quoted_amount expires_at'))
 }))
