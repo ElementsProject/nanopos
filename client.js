@@ -40,7 +40,7 @@ const listen = (invid, cb) => {
       err.status === 402 ? retry()   // long polling timed out, invoice is still payable
     : err.status === 410 ? cb(false) // invoice expired and can no longer be paid
     : err.statusText === 'abort' ? null // user aborted, do nothing
-    : err.setTimeout(retry, 10000)) // unknown error, re-poll after delay
+    : setTimeout(retry, 10000)) // unknown error, re-poll after delay
 
   return _ => (retry = _ => null, req.abort())
 }
