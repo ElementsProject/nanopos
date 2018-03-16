@@ -1,13 +1,14 @@
-- moveDec = require('move-decimal-point')
+- msat2sat = require('fmtbtc').msat2sat
 
 .modal.fade
  .modal-dialog.modal-sm
    .modal-content
      .modal-body.text-center
        h5 Pay with Lightning
-       //-p.font-weight-light #{ msatoshi/100000000 } mBTC = #{ quoted_amount } #{ quoted_currency }
-       //-p.font-weight-light #{ quoted_amount } #{ quoted_currency } = #{ msatoshi/10000 } satoshis
        if msatoshi
-         p.font-weight-light.small #{ quoted_amount } #{ quoted_currency } ≈ #{ moveDec(msatoshi, -3) } satoshis
+         if quoted_currency && quoted_currency != 'BTC'
+           p.font-weight-light.small #{ quoted_amount } #{ quoted_currency } ≈ #{ msat2sat(msatoshi, true) } satoshis
+         else
+           p.font-weight-light.small #{ msat2sat(msatoshi, true) } satoshis
        img.d-block.w-100.mb-3(src=qr)
        p.text-muted.small.font-weight-light.mb-0 Invoice expires in #[span(data-countdown-to=expires_at)]
