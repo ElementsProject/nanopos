@@ -1,5 +1,9 @@
 # nanopos
 
+[![MIT license](https://img.shields.io/github/license/shesek/paypercall.svg)](https://github.com/shesek/paypercall/blob/master/LICENSE)
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![IRC](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/?channels=lightning-charge)
+
 A simple Lightning :zap: point-of-sale system with a clean & minimal web UI, powered by [Lightning Charge](https://github.com/ElementsProject/lightning-charge).
 
 Optimized for places selling fixed-price items (like coffee shops, falafel stands or barber shop), but also has an option for billing custom amounts.
