@@ -1,6 +1,6 @@
 # nanopos
 
-[![MIT license](https://img.shields.io/github/license/shesek/paypercall.svg)](https://github.com/shesek/paypercall/blob/master/LICENSE)
+[![MIT license](https://img.shields.io/github/license/ElementsProject/paypercall.svg)](https://github.com/ElementsProject/paypercall/blob/master/LICENSE)
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![IRC](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/?channels=lightning-charge)
 
@@ -14,7 +14,7 @@ Powered by :zap: [Lightning Charge](https://github.com/ElementsProject/lightning
 ## Setup
 
 ```bash
-$ git clone https://github.com/shesek/nanopos && cd nanopos
+$ git clone https://github.com/ElementsProject/nanopos && cd nanopos
 $ npm install
 
 $ cp items.yaml.example items.yaml # edit to set your items

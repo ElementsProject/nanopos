@@ -5,7 +5,7 @@
   "scripts": {
     "start": "./start.sh"
   },
-  "repository": "https://github.com/shesek/nanopos.git",
+  "repository": "https://github.com/ElementsProject/nanopos.git",
   "keywords": [
     "bitcoin",
     "lightning",
