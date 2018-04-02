@@ -23,6 +23,18 @@ $ cp env.example .env # edit to set configuration options (all are optional exce
 $ npm start
 ```
 
+## Running from Docker
+
+Nanopos includes a Dockerfile and .dockerignore to allow for fast setup and running from a docker container based on node:carbon. To run from the container with port 9112 and port 9116 exposed, first build the image with:
+
+```
+docker build -t elements_project/nanopos .
+```
+and then run with
+```
+docker run -p9112:9112 -p9116:9116 -d elements_project/nanopos
+```
+
 ## Example items file
 
 ```
