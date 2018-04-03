@@ -23,7 +23,7 @@ const pay = async data => {
 
   try {
     const inv  = await $.post('invoice', { ...data, _csrf: csrf })
-        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 0, width: 300 })
+        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 2, width: 300 })
         , diag = $(payDialog({ ...inv, qr })).modal()
 
     updateExp(diag.find('[data-countdown-to]'))
