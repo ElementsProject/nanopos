@@ -13,6 +13,7 @@ app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
 app.set('title', process.env.TITLE || 'Lightning Nano PoS')
 app.set('currency', process.env.CURRENCY || 'BTC')
+app.set('theme', process.env.THEME || 'yeti')
 app.set('views', path.join(__dirname, 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
 
@@ -25,7 +26,8 @@ app.use(require('body-parser').urlencoded({ extended: true }))
 app.use(require('morgan')('dev'))
 app.use(require('csurf')({ cookie: true }))
 
-app.use('/static', require('express').static(path.join(__dirname, 'www')))
+app.use('/bootswatch', require('express').static(path.resolve(require.resolve('bootswatch/package'), '..', 'dist')))
+
 app.get('/script.js', require('browserify-middleware')(__dirname+'/client.js'))
 
 app.get('/', (req, res) => res.render('index.pug', { req, items }))
