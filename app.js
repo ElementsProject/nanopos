@@ -1,8 +1,7 @@
-import fs     from 'fs'
-import path   from 'path'
-import only   from 'only'
-import curfor from 'currency-formatter'
-import { pwrap } from './util'
+import fs      from 'fs'
+import path    from 'path'
+import only    from 'only'
+import { pwrap, fiatFormatter } from './util'
 
 const app    = require('express')()
     , items  = require('js-yaml').safeLoad(fs.readFileSync(process.env.ITEMS_PATH || 'items.yaml'))
@@ -10,14 +9,14 @@ const app    = require('express')()
 
 Object.keys(items).filter(k => !items[k].title).forEach(k => items[k].title = k)
 
-app.locals.formatFiat = amount => curfor.format(amount, { code: app.settings.currency.toUpperCase() })
-
 app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
 app.set('title', process.env.TITLE || 'Lightning Nano PoS')
 app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('views', path.join(__dirname, 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
+
+app.locals.formatFiat = fiatFormatter(app.settings.currency)
 
 app.use(require('cookie-parser')())
 app.use(require('body-parser').json())
