@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-
 import fs      from 'fs'
 import path    from 'path'
 import only    from 'only'
@@ -13,7 +11,7 @@ Object.keys(items).filter(k => !items[k].title).forEach(k => items[k].title = k)
 
 app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
-app.set('title', process.env.TITLE || 'Lightning Nano PoS')
+app.set('title', process.env.TITLE || 'Lightning Nano POS')
 app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('theme', process.env.THEME || 'yeti')
 app.set('views', path.join(__dirname, '..', 'views'))

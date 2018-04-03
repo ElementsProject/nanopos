@@ -2,7 +2,7 @@
   "name": "nanopos",
   "version": "0.0.1",
   "description": "A simple Lightning point-of-sale system, powered by Lightning Charge.",
-  "bin": "dist/app.js",
+  "bin": "dist/cli.js",
   "scripts": {
     "start": "./start.sh",
     "dist": "./build.sh",
@@ -33,6 +33,7 @@
     "fmtbtc": "0.0.2",
     "js-yaml": "^3.10.0",
     "lightning-charge-client": "^0.1.7",
+    "meow": "^4.0.0",
     "morgan": "^1.9.0",
     "only": "0.0.2",
     "pug": "^2.0.0-rc.4"
