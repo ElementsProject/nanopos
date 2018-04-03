@@ -1,5 +1,6 @@
 # nanopos
 
+[![npm release](https://img.shields.io/npm/v/nanopos.svg)](https://www.npmjs.com/package/nanopos)
 [![MIT license](https://img.shields.io/github/license/ElementsProject/paypercall.svg)](https://github.com/ElementsProject/paypercall/blob/master/LICENSE)
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![IRC](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/?channels=lightning-charge)
@@ -11,24 +12,30 @@ A simple Lightning :zap: point-of-sale system with a clean & minimal web UI.
 
 Powered by :zap: [Lightning Charge](https://github.com/ElementsProject/lightning-charge).
 
+<img src="https://i.imgur.com/puslYKb.png" width="45%"></img>
+<img src="https://i.imgur.com/kScuEjG.png" width="45%"></img>
+
+[See demo video here ➤](https://www.youtube.com/watch?v=ckYGyhbovrg)
+
 ## Setup
 
 ```bash
-$ git clone https://github.com/ElementsProject/nanopos && cd nanopos
-$ npm install
+$ npm install -g nanopos
 
-$ cp items.yaml.example items.yaml # edit to set your items
-$ cp env.example .env # edit to set configuration options (all are optional except for CHARGE_TOKEN)
+$ edit items.yaml # see file format below
 
-$ npm start
+$ nanopos --items-path items.yaml --charge-token mySecretToken --currency USD
+HTTP server running on localhost:9116
 ```
 
-## Example items file
+That's it! The web server should now be running on port 9116 and ready to accept payments.
+
+## Example `items.yaml` file
 
 ```
 tea:
-  price: 0.02
-  title: Green Tea # title is optional, defaults to the keys
+  price: 0.02 # denominated in the currency specified by --currency
+  title: Green Tea # title is optional, defaults to the key
 
 coffee:
   price: 1
@@ -46,20 +53,33 @@ tshirt:
   price: 25
 ```
 
-## Example configuration file
+## CLI options
 
 ```bash
-export CHARGE_TOKEN=myAccessTokenForCharge
-export CHARGE_URL=http://localhost:9112
+$ nanopos --help
 
-export TITLE='Lightning Nano PoS'
-export CURRENCY=USD
+  A simple Lightning point-of-sale system, powered by Lightning Charge.
+
+  Usage
+    $ nanopos [options]
+
+  Options
+    -c, --charge-url <url>      lightning charge server url [default: http://localhost:9112]
+    -t, --charge-token <token>  lightning charge access token [required]
+
+    -y, --items-path <path>     path to yaml file with item config [default: ./items.yaml, file is required]
+    -x, --currency <currency>   currency to use for item prices [default: BTC]
+    -m, --theme <name>          pick theme from bootswatch.com [default: yeti]
+    -l, --title <name>          website title [default: Lightning Nano POS]
+
+    -p, --port <port>           http server port [default: 9115]
+    -i, --host <host>           http server listen address [default: 127.0.0.1]
+    -h, --help                  output usage information
+    -v, --version               output version number
+
+  Example
+    $ nanopos -t chargeSecretToken -x EUR -y items.yaml
 ```
-
-## Screenshots
-
-<img src="https://i.imgur.com/puslYKb.png" width="45%"></img>
-<img src="https://i.imgur.com/kScuEjG.png" width="45%"></img>
 
 ## License
 
