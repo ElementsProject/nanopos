@@ -32,7 +32,7 @@ docker build -t elements_project/nanopos .
 ```
 and then run with
 ```
-docker run -p9112:9112 -p9116:9116 -d elements_project/nanopos
+docker run -p9116:9116 -d elements_project/nanopos
 ```
 
 ## Example items file
