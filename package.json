@@ -2,9 +2,16 @@
   "name": "nanopos",
   "version": "0.0.1",
   "description": "A simple Lightning point-of-sale system, powered by Lightning Charge.",
+  "bin": "dist/app.js",
   "scripts": {
-    "start": "./start.sh"
+    "start": "./start.sh",
+    "dist": "./build.sh",
+    "prepublishOnly": "npm run dist"
   },
+  "files": [
+    "dist",
+    "views"
+  ],
   "repository": "https://github.com/ElementsProject/nanopos.git",
   "keywords": [
     "bitcoin",
@@ -16,6 +23,7 @@
   "author": "Nadav Ivgi",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "bootswatch": "^4.0.0-beta.3",
     "cookie-parser": "^1.4.3",
@@ -23,13 +31,11 @@
     "currency-formatter": "^1.3.2",
     "express": "^4.16.2",
     "fmtbtc": "0.0.2",
-    "jquery": "^3.3.1",
     "js-yaml": "^3.10.0",
     "lightning-charge-client": "^0.1.7",
     "morgan": "^1.9.0",
     "only": "0.0.2",
-    "pug": "^2.0.0-rc.4",
-    "qrcode": "^1.2.0"
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -37,8 +43,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babelify": "^8.0.0",
+    "bootstrap": "^4.0.0",
     "browserify-middleware": "^8.0.0",
-    "pugify": "^2.2.0"
+    "jquery": "^3.3.1",
+    "pugify": "^2.2.0",
+    "qrcode": "^1.2.0"
   },
   "browserify": {
     "transform": [

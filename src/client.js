@@ -4,8 +4,8 @@ const $ = require('jquery')
     , B = require('bootstrap')
     , qrcode = require('qrcode')
 
-const payDialog  = require('./views/payment.pug')
-    , paidDialog = require('./views/success.pug')
+const payDialog  = require('../views/payment.pug')
+    , paidDialog = require('../views/success.pug')
 
 const csrf = $('meta[name=csrf]').attr('content')
 
