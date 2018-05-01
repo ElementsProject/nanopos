@@ -1,8 +1,7 @@
-import fs     from 'fs'
-import path   from 'path'
-import only   from 'only'
-import curfor from 'currency-formatter'
-import { pwrap } from './util'
+import fs      from 'fs'
+import path    from 'path'
+import only    from 'only'
+import { pwrap, fiatFormatter } from './util'
 
 const app    = require('express')()
     , items  = require('js-yaml').safeLoad(fs.readFileSync(process.env.ITEMS_PATH || 'items.yaml'))
@@ -10,14 +9,15 @@ const app    = require('express')()
 
 Object.keys(items).filter(k => !items[k].title).forEach(k => items[k].title = k)
 
-app.locals.formatFiat = amount => curfor.format(amount, { code: app.settings.currency.toUpperCase() })
-
 app.set('port', process.env.PORT || 9116)
 app.set('host', process.env.HOST || 'localhost')
-app.set('title', process.env.TITLE || 'Lightning Nano PoS')
+app.set('title', process.env.TITLE || 'Lightning Nano POS')
 app.set('currency', process.env.CURRENCY || 'BTC')
-app.set('views', path.join(__dirname, 'views'))
+app.set('theme', process.env.THEME || 'yeti')
+app.set('views', path.join(__dirname, '..', 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
+
+app.locals.formatFiat = fiatFormatter(app.settings.currency)
 
 app.use(require('cookie-parser')())
 app.use(require('body-parser').json())
@@ -26,10 +26,14 @@ app.use(require('body-parser').urlencoded({ extended: true }))
 app.use(require('morgan')('dev'))
 app.use(require('csurf')({ cookie: true }))
 
-app.use('/static', require('express').static(path.join(__dirname, 'www')))
-app.get('/script.js', require('browserify-middleware')(__dirname+'/client.js'))
-
 app.get('/', (req, res) => res.render('index.pug', { req, items }))
+
+app.use('/bootswatch', require('express').static(path.resolve(require.resolve('bootswatch/package'), '..', 'dist')))
+
+// use pre-compiled browserify bundle when available, or live-compile for dev
+const compiledBundle = path.join(__dirname, 'client.bundle.min.js')
+if (fs.existsSync(compiledBundle)) app.get('/script.js', (req, res) => res.sendFile(compiledBundle))
+else app.get('/script.js', require('browserify-middleware')(require.resolve('./client')))
 
 app.post('/invoice', pwrap(async (req, res) => {
   const item = req.body.item ? items[req.body.item] : { price: req.body.amount }

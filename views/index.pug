@@ -6,7 +6,7 @@ html.h-100
   meta(name='viewport', content='width=device-width, initial-scale=1')
   meta(name='csrf', content=req.csrfToken())
   meta(name='apple-mobile-web-app-capable', content='yes')
-  link(rel='stylesheet', href='static/bootstrap.css')
+  link(rel='stylesheet', href='bootswatch/'+settings.theme+'/bootstrap.min.css')
 
   body.h-100
     .container.d-flex.h-100: .justify-content-center.align-self-center.text-center.mx-auto
@@ -27,6 +27,4 @@ html.h-100
             //-span.input-group-text= settings.currency
             button.btn.btn-primary(type='submit') Pay
 
-  script(src='static/jquery.js')
-  script(src='static/bootstrap.js')
   script(src='script.js')

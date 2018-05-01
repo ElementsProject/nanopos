@@ -1,8 +1,11 @@
 require('babel-polyfill')
 
-const qrcode = require('qrcode')
-const payDialog = require('./views/payment.pug')
-const paidDialog = require('./views/success.pug')
+const $ = require('jquery')
+    , B = require('bootstrap')
+    , qrcode = require('qrcode')
+
+const payDialog  = require('../views/payment.pug')
+    , paidDialog = require('../views/success.pug')
 
 const csrf = $('meta[name=csrf]').attr('content')
 
@@ -20,7 +23,7 @@ const pay = async data => {
 
   try {
     const inv  = await $.post('invoice', { ...data, _csrf: csrf })
-        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 0, width: 300 })
+        , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 2, width: 300 })
         , diag = $(payDialog({ ...inv, qr })).modal()
 
     updateExp(diag.find('[data-countdown-to]'))
