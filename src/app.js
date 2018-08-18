@@ -42,7 +42,7 @@ app.post('/invoice', pwrap(async (req, res) => {
   const inv = await charge.invoice({
     amount: item.price
   , currency: item.price ? app.settings.currency : null
-  , description: `${ app.settings.title }${ item ? ': ' + item.title : '' }`
+  , description: `${ app.settings.title }${ item.title ? ': ' + item.title : '' }`
   , expiry: 599
   , metadata: { source: 'nanopos', item: req.body.item }
   })
