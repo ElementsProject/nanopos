@@ -19,12 +19,13 @@ html.h-100
             h3= item.title
             button.btn.btn-secondary(data-buy-item=itemid) Buy for #{ formatFiat(item.price) }
 
-      .row.mt-4: .col-md-4.offset-md-4.col-sm-6.offset-sm-3
-        h3 Something else
-        form(data-buy): .input-group
-          input.form-control(type='number', step='0.00001', name='amount', placeholder=settings.currency+' (optional)')
-          .input-group-append
-            //-span.input-group-text= settings.currency
-            button.btn.btn-primary(type='submit') Pay
+      unless settings.noCustomAmount
+        .row.mt-4: .col-md-4.offset-md-4.col-sm-6.offset-sm-3
+          h3 Something else
+          form(data-buy): .input-group
+            input.form-control(type='number', step='0.00001', name='amount', placeholder=settings.currency+' (optional)')
+            .input-group-append
+              //-span.input-group-text= settings.currency
+              button.btn.btn-primary(type='submit') Pay
 
   script(src='script.js')
