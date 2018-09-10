@@ -43,6 +43,7 @@
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-watch": "^2.0.7",
     "babelify": "^8.0.0",
     "bootstrap": "^4.0.0",
     "browserify-middleware": "^8.0.0",
