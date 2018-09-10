@@ -16,6 +16,7 @@ app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('theme', process.env.THEME || 'yeti')
 app.set('views', path.join(__dirname, '..', 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
+app.set('noCustomAmount', !!process.env.NOCUSTOM)
 
 app.locals.formatFiat = fiatFormatter(app.settings.currency)
 
