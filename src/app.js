@@ -14,6 +14,7 @@ app.set('host', process.env.HOST || 'localhost')
 app.set('title', process.env.TITLE || 'Lightning Nano POS')
 app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('theme', process.env.THEME || 'yeti')
+app.set('custom_amount', !process.env.NO_CUSTOM)
 app.set('views', path.join(__dirname, '..', 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
 
@@ -36,7 +37,10 @@ if (fs.existsSync(compiledBundle)) app.get('/script.js', (req, res) => res.sendF
 else app.get('/script.js', require('browserify-middleware')(require.resolve('./client')))
 
 app.post('/invoice', pwrap(async (req, res) => {
-  const item = req.body.item ? items[req.body.item] : { price: req.body.amount }
+  const item = req.body.item ? items[req.body.item]
+             : app.enabled('custom_amount') ? { price: req.body.amount }
+             : null
+
   if (!item) return res.sendStatus(404)
 
   const inv = await charge.invoice({

@@ -12,6 +12,7 @@ const args = require('meow')(`
       -x, --currency <currency>   currency to use for item prices [default: BTC]
       -m, --theme <name>          pick theme from bootswatch.com [default: yeti]
       -l, --title <name>          website title [default: Lightning Nano POS]
+      --no-custom                 disable custom amount field [default: false]
 
       -p, --port <port>           http server port [default: 9115]
       -i, --host <host>           http server listen address [default: 127.0.0.1]
@@ -27,7 +28,9 @@ const args = require('meow')(`
 ).flags
 
 Object.keys(args).filter(k => k.length > 1)
-  .forEach(k => process.env[k.replace(/([A-Z])/g, '_$1').toUpperCase()] = args[k])
+  .map(k => [ k.replace(/([A-Z])/g, '_$1').toUpperCase(), args[k] ])
+  .forEach(([ k, v ]) => v !== false ? process.env[k] = v
+                                     : process.env[`NO_${k}`] = true)
 
 process.env.NODE_ENV || (process.env.NODE_ENV = 'production')
 
