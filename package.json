@@ -1,6 +1,6 @@
 {
   "name": "nanopos",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple Lightning point-of-sale system, powered by Lightning Charge.",
   "bin": "dist/cli.js",
   "scripts": {
