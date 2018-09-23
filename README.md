@@ -28,6 +28,20 @@ $ nanopos --items-path items.yaml --charge-token mySecretToken --currency USD
 HTTP server running on localhost:9116
 ```
 
+## Running with Docker
+
+Nanopos includes a Dockerfile to allow for fast setup using a docker container based on node:carbon. To run from the container with port 9116 exposed, first setup [Lightning Charge](https://github.com/ElementsProject/lightning-charge), then build the image with:
+
+```bash
+$ docker build -t elements_project/nanopos .
+```
+
+and then run with:
+
+```bash
+$ docker run -p9116:9116 -e CHARGE_URL=http://[charge-url]/ -e CHARGE_TOKEN=[access-token] elements_project/nanopos
+```
+
 That's it! The web server should now be running on port 9116 and ready to accept payments.
 
 ## Example `items.yaml` file
