@@ -71,6 +71,8 @@ $ nanopos --help
     -x, --currency <currency>   currency to use for item prices [default: BTC]
     -m, --theme <name>          pick theme from bootswatch.com [default: yeti]
     -l, --title <name>          website title [default: Lightning Nano POS]
+    --no-custom                 disable custom amount field [default: false]
+    --show-bolt11               display bolt11 as text and button [default: false]
 
     -p, --port <port>           http server port [default: 9115]
     -i, --host <host>           http server listen address [default: 127.0.0.1]

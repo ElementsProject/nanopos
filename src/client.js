@@ -8,6 +8,7 @@ const payDialog  = require('../views/payment.pug')
     , paidDialog = require('../views/success.pug')
 
 const csrf = $('meta[name=csrf]').attr('content')
+    , show_bolt11 = !!$('meta[name=show-bolt11]').attr('content')
 
 $('[data-buy-item]').click(e => {
   e.preventDefault()
@@ -24,7 +25,7 @@ const pay = async data => {
   try {
     const inv  = await $.post('invoice', { ...data, _csrf: csrf })
         , qr   = await qrcode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase(), { margin: 2, width: 300 })
-        , diag = $(payDialog({ ...inv, qr })).modal()
+        , diag = $(payDialog({ ...inv, qr, show_bolt11 })).modal()
 
     updateExp(diag.find('[data-countdown-to]'))
 

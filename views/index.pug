@@ -5,6 +5,7 @@ html.h-100
   meta(charset='utf-8')
   meta(name='viewport', content='width=device-width, initial-scale=1')
   meta(name='csrf', content=req.csrfToken())
+  meta(name='show-bolt11', content=settings.show_bolt11?1:'')
   meta(name='apple-mobile-web-app-capable', content='yes')
   link(rel='stylesheet', href='bootswatch/'+settings.theme+'/bootstrap.min.css')
 
@@ -25,7 +26,6 @@ html.h-100
           form(data-buy): .input-group
             input.form-control(type='number', step='0.00001', name='amount', placeholder=settings.currency+' (optional)')
             .input-group-append
-              //-span.input-group-text= settings.currency
               button.btn.btn-primary(type='submit') Pay
 
   script(src='script.js')

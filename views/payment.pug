@@ -11,4 +11,8 @@
          else
            p.font-weight-light.small #{ msat2sat(msatoshi, true) } satoshis
        img.d-block.w-100.mb-3(src=qr)
+       if show_bolt11
+         .input-group
+           input.form-control(type='text', value=payreq, readonly)
+           .input-group-append: a.btn.btn-primary(href='lightning:'+payreq) ⚡
        p.text-muted.small.font-weight-light.mb-0 Invoice expires in #[span(data-countdown-to=expires_at)]

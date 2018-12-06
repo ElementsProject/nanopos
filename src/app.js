@@ -14,9 +14,11 @@ app.set('host', process.env.HOST || 'localhost')
 app.set('title', process.env.TITLE || 'Lightning Nano POS')
 app.set('currency', process.env.CURRENCY || 'BTC')
 app.set('theme', process.env.THEME || 'yeti')
-app.set('custom_amount', !process.env.NO_CUSTOM)
 app.set('views', path.join(__dirname, '..', 'views'))
 app.set('trust proxy', process.env.PROXIED || 'loopback')
+
+app.set('custom_amount', !process.env.NO_CUSTOM)
+app.set('show_bolt11', !!process.env.SHOW_BOLT11)
 
 app.locals.formatFiat = fiatFormatter(app.settings.currency)
 
