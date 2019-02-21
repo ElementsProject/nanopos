@@ -63,9 +63,13 @@ beer:
 hat:
   price: 15
 
-tshirt:
+tshirt (S):
   price: 25
+  metadata:
+    shirt_size: S
 ```
+
+The `metadata` object will be added into the metadata of invoices for this item.
 
 ## CLI options
 

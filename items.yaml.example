@@ -16,5 +16,7 @@ beer:
 hat:
   price: 15
 
-tshirt:
+tshirt (S):
   price: 25
+  metadata:
+    shirt_size: S
