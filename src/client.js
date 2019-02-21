@@ -1,8 +1,10 @@
 require('babel-polyfill')
 
 const $ = require('jquery')
-    , B = require('bootstrap')
     , qrcode = require('qrcode')
+
+require('popper.js')
+require('bootstrap')
 
 const payDialog  = require('../views/payment.pug')
     , paidDialog = require('../views/success.pug')
