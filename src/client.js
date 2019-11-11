@@ -32,7 +32,10 @@ const pay = async data => {
     updateExp(diag.find('[data-countdown-to]'))
 
     const unlisten = listen(inv.id, paid => (diag.modal('hide'), paid && success()))
-    diag.on('hidden.bs.modal', unlisten)
+    diag.on('hidden.bs.modal', _ => {
+      unlisten()
+      $('[data-buy] :input').val('')
+    })
   }
   finally { $(':disabled').attr('disabled', false) }
 }
